@@ -13,22 +13,12 @@ export const App: React.FC = () => {
   const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
   return (
-    <StyledContainer className='container'>
-      <div className="header">
-        <h1>Deixe sua avaliação</h1>
-        <p>Ficamos felizes com a sua compra, utilize o formulário abaixo para avaliar o produto</p>
-      </div>
-      <StyledFormContainer className="form-container">
-        <form action="" onSubmit={(e) => changeStep(currentStep + 1, e)}>
-          {currentComponent}
-
-          <div className="input-container">
-            <InputBox />
-          </div>
-          <BackSendIcon color={currentStep == 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
-          <StyledSubmitButton type='submit'><SendIcon fontSize='large' color={currentStep == formComponents.length - 1 ? 'disabled' : 'action'} /></StyledSubmitButton>
-        </form>
-      </StyledFormContainer>
+    <StyledContainer>
+      <StyledForm onSubmit={(e) => changeStep(currentStep + 1)}>
+        {currentComponent}
+        <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
+        <FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep + 1)} />
+      </StyledForm>
     </StyledContainer>
   )
 }
@@ -44,19 +34,30 @@ const StyledContainer = styled.div`
   align-items:center;
 `
 
-const StyledFormContainer = styled.div`
+const StyledForm = styled.form`
   width:50%;
   height:90%;
   display:flex;
-  justify-content:center;
+  flex-direction:column;
+  border: 1px solid black;
   align-items:center;
+  position: relative;
+  padding:2rem;
 `
+const StyledSendIcon = styled(SendIcon)`
+    cursor:pointer;
+    font-size:4rem !important;
+    position:absolute;
+    top:50%;
 
-const BackSendIcon = styled(SendIcon)`
-  rotate: 180deg;
 `
-const StyledSubmitButton = styled.button`
-  background-color: transparent ;
-  border: 0;
-  color: none;
+const BackSendIcon = styled(StyledSendIcon)`
+  rotate: 180deg;
+  transform:translateY(50%);
+  left:-55px;
+  
+`
+const FowardSendIcon = styled(StyledSendIcon)`
+  right:-55px;
+  transform:translateY(-50%);
 `
