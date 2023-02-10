@@ -6,10 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     margin:0;
     box-sizing:border-box;
     font-family: 'Barlow', sans-serif;
-    color:#333
     }
-    p{
+    label{
         color:#777;
+        font-weight:500;
     }
     body{
         background-color:#f9fafc

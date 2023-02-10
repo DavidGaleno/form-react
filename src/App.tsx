@@ -1,20 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
 import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
-import Send from '@mui/icons-material/Send';
 import { UserForm } from './components/UserForm';
 import { ReviewForm } from './components/ReviewForm';
 import { Thanks } from './components/Thanks';
 import { useForm } from './hook/useForm';
-import { InputBox } from './components/Input-Box';
+import { Steps } from './components/Steps';
 export const App: React.FC = () => {
   const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
   return (
     <StyledContainer>
+
       <StyledForm onSubmit={(e) => changeStep(currentStep + 1)}>
+        <Steps currentStep={currentStep}/>
         {currentComponent}
         <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
         <FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep + 1)} />
@@ -43,6 +41,7 @@ const StyledForm = styled.form`
   align-items:center;
   position: relative;
   padding:2rem;
+  box-shadow: rgba(100,100,111,.2) 0px 7px 29px 0px
 `
 const StyledSendIcon = styled(SendIcon)`
     cursor:pointer;

@@ -23,7 +23,8 @@ const StyledInput = styled.div`
         height:100%;
         border:0;
         font-size:1.5rem;
-        border-bottom: 1px solid black
+        border-bottom: 1px solid black;
+        font-weight: 300;
 
     }
     input:focus{
