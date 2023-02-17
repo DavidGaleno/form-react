@@ -10,12 +10,12 @@ export const App: React.FC = () => {
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
   return (
     <StyledContainer>
-
-      <StyledForm onSubmit={(e) => changeStep(currentStep + 1)}>
+      <StyledForm onSubmit={(e) =>{e.preventDefault() 
+        changeStep(currentStep + 1)}}>
         <Steps currentStep={currentStep}/>
         {currentComponent}
         <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
-        <FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep + 1)} />
+        <button type="submit"><FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} /></button>
       </StyledForm>
     </StyledContainer>
   )
