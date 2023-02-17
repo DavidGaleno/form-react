@@ -8,7 +8,7 @@ import { Steps } from './components/Steps';
 export const App: React.FC = () => {
   const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
-  return (
+   return (
     <StyledContainer>
       <StyledForm onSubmit={(e) =>{e.preventDefault() 
         changeStep(currentStep + 1)}}>

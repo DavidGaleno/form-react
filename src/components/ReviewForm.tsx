@@ -17,6 +17,7 @@ export const ReviewForm: React.FC = () => {
 
 const StyledContainer = styled.div`
     width:100%;
+    overflow-y: scroll;
     display:flex;
     flex-direction:column;
     gap: 3rem;

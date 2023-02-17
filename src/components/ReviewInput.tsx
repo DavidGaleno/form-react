@@ -14,16 +14,16 @@ interface Props {
     setValue: any
 }
 
-export const ReviewInput: React.FC<Props> = ({ label,value,setValue }: Props) => {
+export const ReviewInput: React.FC<Props> = ({ label, value, setValue }: Props) => {
     return (
         <StyledInputContainer>
             <h2>{label}</h2>
             <StyledRadioBoxContainer>
-                <RadioBox value={value} setValue={setValue} label={label} id="0" icon={<SentimentVeryDissatisfiedIcon className="icon" />} />
-                <RadioBox value={value} setValue={setValue} label={label} id="1" icon={<SentimentDissatisfiedIcon className="icon" />} />
-                <RadioBox value={value} setValue={setValue}label={label} id="2" icon={<SentimentNeutralIcon className="icon" />} />
-                <RadioBox value={value} setValue={setValue} label={label} id="3" icon={<SentimentSatisfiedAltIcon className="icon" />} />
-                <RadioBox value={value} setValue={setValue}label={label} id="4" icon={<TagFacesIcon className="icon" />} />
+                <RadioBox value={value} setValue={setValue} label={label} id="0" />
+                <RadioBox value={value} setValue={setValue} label={label} id="1" />
+                <RadioBox value={value} setValue={setValue} label={label} id="2" />
+                <RadioBox value={value} setValue={setValue} label={label} id="3" />
+                <RadioBox value={value} setValue={setValue} label={label} id="4" />
             </StyledRadioBoxContainer>
         </StyledInputContainer>
     )

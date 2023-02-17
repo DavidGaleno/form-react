@@ -1,21 +1,20 @@
 import styled from "styled-components"
-
+import { icons } from "./icons"
 interface Props{
     value: any
     setValue: any
-    icon: JSX.Element
     id: string;
     label:string;
 }
 
-export const RadioBox : React.FC<Props> = ( {value,setValue,icon,id,label} : Props) => {
+export const RadioBox : React.FC<Props> = ( {value,setValue,id,label} : Props) => {
     const sla = (e : any)=> {
         setValue(e.target.id)
     }
     return (
         <StyledLabel className="radio-container">
             <input id={id} type="radio" value="unsatisfied" onClick={(e)=>sla(e)} name={label} required checked={value === id ? true : false} />
-            {icon}
+            {icons[Number(id)]}
         </StyledLabel>
     )
 }

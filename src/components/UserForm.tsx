@@ -10,13 +10,17 @@ export const UserForm: React.FC = () => {
         <StyledContainer>
             <InputBox type="text" label="Name" value={name} setValue={setName} />
             <InputBox type="number" label="Age" value={age} setValue={setAge}  />
-            <InputBox type="text" label="Email" value={email} setValue={setEmail}  />
+            <InputBox type="email" label="Email" value={email} setValue={setEmail}  />
+                
+
         </StyledContainer>
     )
 }
 
 const StyledContainer = styled.div`
     width:100%;
+    padding:1rem;   
+    overflow-y:auto;
     display:flex;   
     flex-direction:column;
     gap: 3rem;

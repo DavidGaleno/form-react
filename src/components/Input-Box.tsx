@@ -1,6 +1,7 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components"
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 interface Props {
     label: string
     type: string
@@ -9,25 +10,45 @@ interface Props {
 }
 
 export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Props) => {
-    const validateInput = (e: any) => {
+    const [validate, setValidate] = useState(true)
+
+    useEffect(() => {
+        if (value) {
+            if (type === 'email') {
+                const regex = new RegExp(/^\w+@\w+\.(\w{2,3}|\w{2,3}\.\w{2})$/,'i')
+
+                if (regex.test(value)) {
+                    setValidate(true)
+                }
+                else {
+                    setValidate(false)
+                }
+            }
+        }
+    }, [value])
+
+    const validateUserInput = (e: any) => {
         if (type === 'number') {
-            const regex = new RegExp(/[0-9]/)
+
+            const regex = value ? new RegExp(/[0-9]/) : new RegExp(/[1-9]/)
             e.key !== "Backspace" && !regex.test(e.key) && e.preventDefault()
         }
         else if (type === 'text') {
-            const regex = new RegExp("[a-zçâãõô ]", 'i')
-            if (value && (value + e.key).includes("  ")) {
-                e.preventDefault()
-                return
-            }
+            const regex = new RegExp("[a-zçâãõôáéóúàèòùìí ]", 'i')
+            if (value && (value + e.key).includes("  ")) e.preventDefault()
             else !regex.test(e.key) && e.preventDefault()
+        }
+        else if (type === "email") {
+            if (e.key == " ") e.preventDefault()
+            
         }
 
     }
     return (
         <StyledInput>
-            <input type={type} min='1' name="" id={label} defaultValue={value} onKeyDown={(e) => validateInput(e)} onChange={(e) => setValue(e.target.value)} required />
+            <input type={type} min='1' name="" id={label} defaultValue={value} onKeyDown={(e) => validateUserInput(e)} onChange={(e) => setValue(e.target.value)} required />{value ? validate ? <CheckCircleOutlineIcon color="success" className="checkSymbol" /> : <DangerousOutlinedIcon className="checkSymbol" color="error" /> : ''}
             <label className={value ? "focusedLabel" : "unfocusedLabel"} htmlFor={label}>{label}</label>
+
         </StyledInput>
     )
 }
@@ -35,12 +56,13 @@ export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Prop
 
 const StyledInput = styled.div`
     width: 100%;
-    height:4rem;
+    min-height:4rem;
     position:relative;
     input{
         width:100%;
         height:100%;
         border:0;
+        padding-left:1rem;
         font-size:1.5rem;
         border-bottom: 1px solid black;
         font-weight: 300;
@@ -73,5 +95,11 @@ const StyledInput = styled.div`
         left:2%;
         font-size:1.8rem;
         top:50%;
+    }
+    .checkSymbol{
+        position:absolute;
+        top:50%;
+        right:0;
+        transform:translateY(-50%);
     }
 `

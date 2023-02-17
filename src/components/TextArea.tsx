@@ -6,7 +6,7 @@ interface Props{
 export const TextArea = ({value,setValue}: Props) => {
     return (
         <StyledContainer>
-            <textarea style={{resize:'none'}} name="" id="" cols={30} rows={10} placeholder="Tell Us How Was Your Experience" defaultValue={value} onChange={(e)=>setValue(e.target.value)}></textarea>
+            <textarea style={{resize:'none'}} name="" id="" maxLength={300} cols={30} rows={10} placeholder="Tell Us How Was Your Experience" defaultValue={value} onChange={(e)=>setValue(e.target.value)}></textarea>
         </StyledContainer>
     )
 }
@@ -14,6 +14,7 @@ export const TextArea = ({value,setValue}: Props) => {
 const StyledContainer = styled.div`
     width:100%;
     display:flex;
+    flex: 1;
     flex-direction:column;
     gap: 3rem;
 `
