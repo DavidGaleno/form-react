@@ -3,53 +3,52 @@ import styled from "styled-components"
 import { GlobalContext } from "../context/globalContext"
 import { icons } from "./icons"
 export const Thanks: React.FC = () => {
-    const {name,age,email,usability,utility,comment} = useContext(GlobalContext)
+    const { name, age, email, usability, utility, comment } = useContext(GlobalContext)
     return (
         <StyledContainer>
-            <StyledButton type="submit">SUBMIT</StyledButton>
             <h3>Here an resume of your answers</h3>
+            <h4>Submit and get a 10% discount cupom</h4>
+            <StyledButton type="submit">SUBMIT</StyledButton>
             <Resume>
                 <Box>
-                <label htmlFor="name">Name:</label>
-                <p className="text">{name}</p>
+                    <label htmlFor="name">Name:</label>
+                    <p className="text">{name}</p>
                 </Box>
                 <Box>
-                <label htmlFor="name">Age:</label>
-                <p className="text">{age}</p>
+                    <label htmlFor="name">Age:</label>
+                    <p className="text">{age}</p>
                 </Box>
                 <Box>
-                <label htmlFor="name">Email:</label>
-                <p className="text">{email}</p>
+                    <label htmlFor="name">Email:</label>
+                    <p className="text">{email}</p>
                 </Box>
                 <Box>
-                <label htmlFor="usability">Usability:</label>
-                <p>{icons[usability]}</p>
+                    <label htmlFor="usability">Usability:</label>
+                    <p>{icons[usability]}</p>
                 </Box>
                 <Box>
-                <label htmlFor="utility">Utility:</label>
-                <p>{icons[utility]}</p>
+                    <label htmlFor="utility">Utility:</label>
+                    <p>{icons[utility]}</p>
                 </Box>
-              
-                
+
+
                 {comment &&
                     <Box className="comment-box">
-                    <div className="first-section">
-                    <label htmlFor="comment">Comments:</label>
-                    <p className="comment">{comment.length > 60 ? `${comment.substring(0,60)}` : comment}</p>
-                    </div>
-                    <p className="comment">{comment.length > 140 ? `${comment.substring(61,140)}...` : comment}</p>
+                        <div className="first-section">
+                            <label htmlFor="comment">Comments:</label>
+                            <p className="comment">{comment.length > 60 ? `${comment.substring(0, 60)}` : comment}</p>
+                        </div>
+                        <p className="comment">{comment.length > 140 ? `${comment.substring(61, 140)}...` : comment}</p>
                     </Box>
                 }
             </Resume>
-            <h4>Submit and get a 10% discount cupom</h4>
         </StyledContainer>
     )
 }
 const StyledContainer = styled.div`
     width:100%;
-    height:100%;
     display:flex;
-    justify-content:space-evenly;
+    gap: 2rem;
     align-items:center;
     flex-direction:column;
     h3{
@@ -61,6 +60,10 @@ const StyledContainer = styled.div`
         color:gray;
         font-size:2rem;
     }
+    @media screen and (max-height: 500px){
+        justify-content:flex-start;
+    }
+    
 `
 const Resume = styled.div`
     width:100%;
@@ -76,6 +79,10 @@ const Resume = styled.div`
         flex-wrap: wrap;
         flex-direction: column;
     }
+    @media screen and (max-height: 500px){
+      overflow-y: visible;
+      max-height:fit-content;
+  }
    
 `
 const StyledButton = styled.button`

@@ -8,11 +8,13 @@ import { Steps } from './components/Steps';
 export const App: React.FC = () => {
   const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
-   return (
+  return (
     <StyledContainer>
-      <StyledForm onSubmit={(e) =>{e.preventDefault() 
-        changeStep(currentStep + 1)}}>
-        <Steps currentStep={currentStep}/>
+      <StyledForm onSubmit={(e) => {
+        e.preventDefault()
+        changeStep(currentStep + 1)
+      }}>
+        <Steps currentStep={currentStep} />
         {currentComponent}
         <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
         <button type="submit"><FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} /></button>
@@ -30,6 +32,10 @@ const StyledContainer = styled.div`
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  @media screen and (max-height: 500px){
+    height:100%;
+  }
+
 `
 
 const StyledForm = styled.form`
@@ -41,22 +47,57 @@ const StyledForm = styled.form`
   align-items:center;
   position: relative;
   padding:2rem;
-  box-shadow: rgba(100,100,111,.2) 0px 7px 29px 0px
+  box-shadow: rgba(100,100,111,.2) 0px 7px 29px 0px;
+  @media screen and (max-width: 800px){
+    width:70%;
+  }
+  @media screen and (max-width: 570px){
+    width:90%;
+  }
+  @media screen and (max-width: 570px){
+    width:100%;
+    height:100%;
+  }
+  @media screen and (max-height: 500px){
+    height:100%;
+    width:100%;
+  }
 `
 const StyledSendIcon = styled(SendIcon)`
     cursor:pointer;
     font-size:4rem !important;
     position:absolute;
     top:50%;
+    @media screen and (max-width: 570px){
+      top: 45px;
+  }
+    @media screen and (max-height: 500px){
+      top: 45px;
+  }
+    
 
 `
 const BackSendIcon = styled(StyledSendIcon)`
   rotate: 180deg;
   transform:translateY(50%);
   left:-55px;
+  @media screen and (max-width: 570px){
+    left: 20px;
+  }
+  @media screen and (max-height: 500px){
+    left: 20px;
+
+  }
   
 `
 const FowardSendIcon = styled(StyledSendIcon)`
   right:-55px;
   transform:translateY(-50%);
+  @media screen and (max-width: 570px){
+    right: 20px;
+  }
+  @media screen and (max-height: 500px){
+    right: 20px;
+
+  }
 `
