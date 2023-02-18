@@ -2,11 +2,11 @@ import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
 import { UserForm } from './components/forms/UserForm';
 import { ReviewForm } from './components/forms/ReviewForm';
-import { Thanks } from './components/forms/Thanks';
+import { SubmitForm } from './components/forms/SubmitForm';
 import { useForm } from './hook/useForm';
 import { Steps } from './components/header/Steps';
 export const App: React.FC = () => {
-  const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
+  const formComponents = [<UserForm />, <ReviewForm />, <SubmitForm />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
   return (
     <StyledContainer>
@@ -32,7 +32,7 @@ const StyledContainer = styled.div`
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  @media screen and (max-height: 500px){
+  @media screen and (max-height: 564px){
     height:100%;
   }
 
@@ -61,7 +61,7 @@ const StyledForm = styled.form`
     width:100%;
     height:100%;
   }
-  @media screen and (max-height: 500px){
+  @media screen and (max-height: 564px){
     height:100%;
     width:100%;
   }
@@ -74,7 +74,7 @@ const StyledSendIcon = styled(SendIcon)`
     @media screen and (max-width: 570px){
       top: 45px;
   }
-    @media screen and (max-height: 500px){
+    @media screen and (max-height: 564px){
       top: 45px;
   }
 `
@@ -86,7 +86,7 @@ const BackSendIcon = styled(StyledSendIcon)`
   @media screen and (max-width: 570px){
     left: 20px;
   }
-  @media screen and (max-height: 500px){
+  @media screen and (max-height: 564px){
     left: 20px;
 
   }
@@ -98,7 +98,7 @@ const FowardSendIcon = styled(StyledSendIcon)`
   @media screen and (max-width: 570px){
     right: 20px;
   }
-  @media screen and (max-height: 500px){
+  @media screen and (max-height: 564px){
     right: 20px;
 
   }

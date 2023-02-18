@@ -24,7 +24,7 @@ const StyledContainer = styled.div`
     display:flex;   
     flex-direction:column;
     gap: 3rem;
-    @media screen and (max-height: 500px){
+    @media screen and (max-height: 564px){
       height:100vh;
   }
 `

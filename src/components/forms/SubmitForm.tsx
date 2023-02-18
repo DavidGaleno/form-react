@@ -2,7 +2,7 @@ import { useContext } from "react"
 import styled from "styled-components"
 import { GlobalContext } from "../../context/globalContext"
 import { icons } from "../icons/icons"
-export const Thanks: React.FC = () => {
+export const SubmitForm: React.FC = () => {
     const { name, age, email, usability, utility, comment } = useContext(GlobalContext)
     return (
         <StyledContainer>
@@ -38,7 +38,9 @@ export const Thanks: React.FC = () => {
                             <label htmlFor="comment">Comments:</label>
                             <p className="comment">{comment.length > 60 ? `${comment.substring(0, 60)}` : comment}</p>
                         </div>
-                        <p className="comment">{comment.length > 140 ? `${comment.substring(61, 140)}...` : comment}</p>
+                        <div className="last-section">
+                            <p className="comment">{comment.length > 140 ? `${comment.substring(61)}` : comment}</p>
+                        </div>
                     </Box>
                 }
             </Resume>
@@ -60,26 +62,25 @@ const StyledContainer = styled.div`
         color:gray;
         font-size:2rem;
     }
-    @media screen and (max-height: 500px){
+    @media screen and (max-height: 564px){
         justify-content:flex-start;
     }
     
 `
 const Resume = styled.div`
     width:100%;
-    max-height: 20rem;
+    max-height: 23rem;
     overflow-y:scroll;
     display:flex;   
     flex-direction:column;
     gap: 2rem;   
     .comment-box{
-        display:flex;
-        align-items:flex-start;
-        justify-content:center;
-        flex-wrap: wrap;
-        flex-direction: column;
+        display:block !important;
+        .comment{
+            word-wrap: break-word;
+        }
     }
-    @media screen and (max-height: 500px){
+    @media screen and (max-height: 564px){
       overflow-y: visible;
       max-height:fit-content;
   }
@@ -111,10 +112,14 @@ const Box = styled.div`
         align-items:center;
         width:100%;
     }
+    .last-section{
+        display:block;
+    }
     .icon{
         font-size:3rem;
     }
     .comment{
         font-size:1.3rem;
+        line-height:2rem;
     }
 `
