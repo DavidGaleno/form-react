@@ -24,11 +24,11 @@ export const SubmitForm: React.FC = () => {
                 </Box>
                 <Box>
                     <label htmlFor="usability">Usability:</label>
-                    <p>{icons[usability]}</p>
+                    <p>{icons[Number(usability)]}</p>
                 </Box>
                 <Box>
                     <label htmlFor="utility">Utility:</label>
-                    <p>{icons[utility]}</p>
+                    <p>{icons[Number(utility)]}</p>
                 </Box>
 
 
@@ -39,7 +39,7 @@ export const SubmitForm: React.FC = () => {
                             <p className="comment">{comment.length > 60 ? `${comment.substring(0, 60)}` : comment}</p>
                         </div>
                         <div className="last-section">
-                            <p className="comment">{comment.length > 140 ? `${comment.substring(61)}` : comment}</p>
+                            <p className="comment">{comment.length > 140 && `${comment.substring(61)}`}</p>
                         </div>
                     </Box>
                 }

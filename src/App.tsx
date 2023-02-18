@@ -11,7 +11,7 @@ export const App: React.FC = () => {
       <StyledForm onSubmit={(e) => {
         e.preventDefault()
         if (currentStep < 2) {
-          changeStep(currentStep + 1, false)
+          changeStep(currentStep + 1, false, e)
           return
         }
         window.alert("Formulário enviado com sucesso!")
