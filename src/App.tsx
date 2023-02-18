@@ -1,10 +1,10 @@
 import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
-import { UserForm } from './components/UserForm';
-import { ReviewForm } from './components/ReviewForm';
-import { Thanks } from './components/Thanks';
+import { UserForm } from './components/forms/UserForm';
+import { ReviewForm } from './components/forms/ReviewForm';
+import { Thanks } from './components/forms/Thanks';
 import { useForm } from './hook/useForm';
-import { Steps } from './components/Steps';
+import { Steps } from './components/header/Steps';
 export const App: React.FC = () => {
   const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
@@ -48,6 +48,9 @@ const StyledForm = styled.form`
   position: relative;
   padding:2rem;
   box-shadow: rgba(100,100,111,.2) 0px 7px 29px 0px;
+  button{
+    border: 0
+  }
   @media screen and (max-width: 800px){
     width:70%;
   }
@@ -74,9 +77,8 @@ const StyledSendIcon = styled(SendIcon)`
     @media screen and (max-height: 500px){
       top: 45px;
   }
-    
-
 `
+
 const BackSendIcon = styled(StyledSendIcon)`
   rotate: 180deg;
   transform:translateY(50%);

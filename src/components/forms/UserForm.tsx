@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import styled from "styled-components"
-import { GlobalContext } from "../context/globalContext"
-import { InputBox } from "./Input-Box"
+import { GlobalContext } from "../../context/globalContext"
+import { InputBox } from "../Inputs/Input-Box"
 import { StyledForm } from "./StyledForm"
 
 export const UserForm: React.FC = () => {

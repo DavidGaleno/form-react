@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { GlobalContext } from "../context/globalContext";
-import { ReviewInput } from "./ReviewInput";
-import { TextArea } from "./TextArea";
+import { GlobalContext } from "../../context/globalContext";
+import { ReviewInput } from "../Inputs/ReviewInput";
+import { TextArea } from "../Inputs/TextArea";
 export const ReviewForm: React.FC = () => {
     const {usability,setUsability,utility,setUtility,comment,setComment} = useContext(GlobalContext)
 

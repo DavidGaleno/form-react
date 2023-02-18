@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import styled from "styled-components"
-import { GlobalContext } from "../context/globalContext"
-import { icons } from "./icons"
+import { GlobalContext } from "../../context/globalContext"
+import { icons } from "../icons/icons"
 export const Thanks: React.FC = () => {
     const { name, age, email, usability, utility, comment } = useContext(GlobalContext)
     return (
