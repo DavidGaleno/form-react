@@ -1,23 +1,27 @@
 import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
-import { UserForm } from './components/forms/UserForm';
-import { ReviewForm } from './components/forms/ReviewForm';
-import { SubmitForm } from './components/forms/SubmitForm';
-import { useForm } from './hook/useForm';
+
 import { Steps } from './components/header/Steps';
+import { useContext } from 'react';
+import { GlobalContext } from './context/globalContext';
 export const App: React.FC = () => {
-  const formComponents = [<UserForm />, <ReviewForm />, <SubmitForm />]
-  const { currentStep, currentComponent, changeStep } = useForm(formComponents)
+  const { currentStep, changeStep, currentComponent, steps } = useContext(GlobalContext)
   return (
     <StyledContainer>
       <StyledForm onSubmit={(e) => {
         e.preventDefault()
-        changeStep(currentStep + 1)
+        if (currentStep < 2) {
+          changeStep(currentStep + 1, false)
+          return
+        }
+        window.alert("Formulário enviado com sucesso!")
+        changeStep(currentStep - 2, true)
+
       }}>
         <Steps currentStep={currentStep} />
         {currentComponent}
-        <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1)} />
-        <button type="submit"><FowardSendIcon color={currentStep === formComponents.length - 1 ? 'disabled' : 'action'} /></button>
+        <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1, false, e)} />
+        <button type="submit" onClick={(e) => currentStep === 2 && e.preventDefault()}><FowardSendIcon color={currentStep === steps.length - 1 ? 'disabled' : 'action'} /></button>
       </StyledForm>
     </StyledContainer>
   )
