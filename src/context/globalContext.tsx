@@ -6,12 +6,6 @@ import { useForm } from 'react-hook-form'
 interface IGlobalContext {
     dataDefaultValue: any,
     setDataDefaultValue: (newState: any) => void,
-    usability: string,
-    setUsability: (newState: string) => void
-    utility: string,
-    setUtility: (newState: string) => void
-    comment: string,
-    setComment: (newState: string) => void
     steps: JSX.Element[],
     currentStep: number,
     currentComponent: JSX.Element,
@@ -26,9 +20,6 @@ GlobalContext.displayName = 'Global Context'
 export const GlobalProvider = ({ children }: any) => {
     const [dataDefaultValue, setDataDefaultValue] = useState<any>({})
     const { register, handleSubmit, reset } = useForm()
-    const [usability, setUsability] = useState<string>('')
-    const [utility, setUtility] = useState<string>('')
-    const [comment, setComment] = useState<string>('')
     const steps = [<UserForm />, <ReviewForm />, <SubmitForm />]
     const [currentStep, setCurrentStep] = useState(0)
     const [currentComponent, setCurrentComponent] = useState(steps[currentStep])
@@ -46,7 +37,7 @@ export const GlobalProvider = ({ children }: any) => {
     }
 
     return (
-        <GlobalContext.Provider value={{ dataDefaultValue, setDataDefaultValue, usability, setUsability, utility, setUtility, comment, setComment, currentStep, currentComponent, changeStep, steps, handleSubmit, register }}>
+        <GlobalContext.Provider value={{ dataDefaultValue, setDataDefaultValue, currentStep, currentComponent, changeStep, steps, handleSubmit, register }}>
             {children}
         </GlobalContext.Provider>
     )

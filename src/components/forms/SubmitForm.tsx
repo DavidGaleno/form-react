@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { GlobalContext } from "../../context/globalContext"
 import { icons } from "../icons/icons"
 export const SubmitForm: React.FC = () => {
-    const { usability, utility, comment, dataDefaultValue } = useContext(GlobalContext)
+    const { dataDefaultValue } = useContext(GlobalContext)
     return (
         <StyledContainer>
             <h3>Here an resume of your answers</h3>
