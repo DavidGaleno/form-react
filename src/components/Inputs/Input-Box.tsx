@@ -1,23 +1,23 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
+import { GlobalContext } from "../../context/globalContext";
 interface Props {
     label: string
     type: string
-    value: any
-    setValue: any
 }
 
-export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Props) => {
+export const InputBox: React.FC<Props> = ({ label, type }: Props) => {
     const [validate, setValidate] = useState(true)
+    const { register, dataDefaultValue, setDataDefaultValue } = useContext(GlobalContext)
 
     useEffect(() => {
-        if (value) {
+        if (dataDefaultValue[label]) {
             if (type === 'email') {
-                const regex = new RegExp(/^\w+@\w+\.(\w{2,3}|\w{2,3}\.\w{2})$/,'i')
+                const regex = new RegExp(/^\w+@\w+\.(\w{2,3}|\w{2,3}\.\w{2})$/, 'i')
 
-                if (regex.test(value)) {
+                if (regex.test(dataDefaultValue[label].value)) {
                     setValidate(true)
                 }
                 else {
@@ -25,29 +25,38 @@ export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Prop
                 }
             }
         }
-    }, [value])
+    }, [dataDefaultValue])
+    useEffect(() => {
+        console.log(dataDefaultValue)
+    }, [dataDefaultValue])
 
     const validateUserInput = (e: any) => {
         if (type === 'number') {
 
-            const regex = value ? new RegExp(/[0-9]/) : new RegExp(/[1-9]/)
+            const regex = dataDefaultValue[label] ? new RegExp(/[0-9]/) : new RegExp(/[1-9]/)
             e.key !== "Backspace" && !regex.test(e.key) && e.preventDefault()
         }
         else if (type === 'text') {
             const regex = new RegExp("[a-zçâãõôáéóúàèòùìí ]", 'i')
-            if (value && (value + e.key).includes("  ")) e.preventDefault()
+            if (dataDefaultValue[label] && (dataDefaultValue[label].value + e.key).includes("  ")) e.preventDefault()
             else !regex.test(e.key) && e.preventDefault()
         }
         else if (type === "email") {
             if (e.key == " ") e.preventDefault()
-            
+
         }
 
     }
     return (
         <StyledInput>
-            <input type={type} min='1' name="" id={label} defaultValue={value} onKeyDown={(e) => validateUserInput(e)} onChange={(e) => setValue(e.target.value)} required />{value ? validate ? <CheckCircleOutlineIcon color="success" className="checkSymbol" /> : <DangerousOutlinedIcon className="checkSymbol" color="error" /> : ''}
-            <label className={value ? "focusedLabel" : "unfocusedLabel"} htmlFor={label}>{label}</label>
+            <input type={type} min='1' name="" id={label} onKeyDown={(e) => validateUserInput(e)} {...register(label)} onChange={(e) => setDataDefaultValue((prev: any) => ({
+                ...prev,
+                [label]: {
+                    type,
+                    value: e.target.value
+                }
+            }))} required />{dataDefaultValue[label] ? validate ? <CheckCircleOutlineIcon color="success" className="checkSymbol" /> : <DangerousOutlinedIcon className="checkSymbol" color="error" /> : ''}
+            <label className={dataDefaultValue[label] ? "focusedLabel" : "unfocusedLabel"} htmlFor={label}>{label}</label>
 
         </StyledInput>
     )
@@ -99,7 +108,7 @@ const StyledInput = styled.div`
     .checkSymbol{
         position:absolute;
         top:50%;
-        right:0;
+        right:20px;
         transform:translateY(-50%);
     }
 `

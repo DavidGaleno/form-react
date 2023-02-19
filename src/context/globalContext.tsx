@@ -1,16 +1,11 @@
 import { createContext, FormEvent, ReactNode, SetStateAction, useState } from 'react'
-import { useTheme } from 'styled-components'
 import { ReviewForm } from '../components/forms/ReviewForm'
 import { SubmitForm } from '../components/forms/SubmitForm'
 import { UserForm } from '../components/forms/UserForm'
-
+import { useForm } from 'react-hook-form'
 interface IGlobalContext {
-    name: string,
-    setName: (newState: string) => void
-    age: string,
-    setAge: (newState: string) => void
-    email: string,
-    setEmail: (newState: string) => void
+    dataDefaultValue: any,
+    setDataDefaultValue: (newState: any) => void,
     usability: string,
     setUsability: (newState: string) => void
     utility: string,
@@ -21,15 +16,16 @@ interface IGlobalContext {
     currentStep: number,
     currentComponent: JSX.Element,
     changeStep: (step: SetStateAction<number>, end: Boolean, e?: FormEvent) => void
+    register: any
+    handleSubmit: any
 }
 
 export const GlobalContext = createContext<IGlobalContext>({} as IGlobalContext)
 GlobalContext.displayName = 'Global Context'
 
 export const GlobalProvider = ({ children }: any) => {
-    const [name, setName] = useState<string>('')
-    const [age, setAge] = useState<string>('')
-    const [email, setEmail] = useState<string>('')
+    const [dataDefaultValue, setDataDefaultValue] = useState<any>({})
+    const { register, handleSubmit, reset } = useForm()
     const [usability, setUsability] = useState<string>('')
     const [utility, setUtility] = useState<string>('')
     const [comment, setComment] = useState<string>('')
@@ -40,12 +36,9 @@ export const GlobalProvider = ({ children }: any) => {
         if (e) e.preventDefault()
         if (step < 0 || step >= steps.length) return
         if (end) {
-            setName('')
-            setAge('')
-            setEmail('')
-            setUsability('')
-            setUtility('')
-            setComment('')
+            setDataDefaultValue({})
+            reset({})
+            
         }
 
         setCurrentStep(step)
@@ -53,7 +46,7 @@ export const GlobalProvider = ({ children }: any) => {
     }
 
     return (
-        <GlobalContext.Provider value={{ name, setName, age, setAge, email, setEmail, usability, setUsability, utility, setUtility, comment, setComment, currentStep, currentComponent, changeStep, steps }}>
+        <GlobalContext.Provider value={{ dataDefaultValue, setDataDefaultValue, usability, setUsability, utility, setUtility, comment, setComment, currentStep, currentComponent, changeStep, steps, handleSubmit, register }}>
             {children}
         </GlobalContext.Provider>
     )

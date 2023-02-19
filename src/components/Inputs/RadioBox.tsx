@@ -1,19 +1,25 @@
+import { useContext } from "react";
 import styled from "styled-components"
+import { GlobalContext } from "../../context/globalContext";
 import { icons } from "../icons/icons"
-interface Props{
+interface Props {
     value: any
     setValue: any
     id: string;
-    label:string;
+    label: string;
 }
 
-export const RadioBox : React.FC<Props> = ( {value,setValue,id,label} : Props) => {
-    const sla = (e : any)=> {
-        setValue(e.target.id)
-    }
+export const RadioBox: React.FC<Props> = ({ value, setValue, id, label }: Props) => {
+    const { setDataDefaultValue, dataDefaultValue } = useContext(GlobalContext)
     return (
         <StyledLabel className="radio-container">
-            <input id={id} type="radio" value="unsatisfied" onClick={(e)=>sla(e)} name={label} required checked={value === id ? true : false} />
+            <input id={id} type="radio" value="unsatisfied" onClick={(e: any) => setDataDefaultValue((prev: any) => ({
+                ...prev,
+                [label]: {
+                    type: 'radio',
+                    value: e.target.id
+                }
+            }))} name={label} required checked={dataDefaultValue[label] && dataDefaultValue[label].value === id ? true : false} />
             {icons[Number(id)]}
         </StyledLabel>
     )

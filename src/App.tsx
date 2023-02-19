@@ -2,22 +2,23 @@ import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
 
 import { Steps } from './components/header/Steps';
-import { useContext } from 'react';
+import { FormEvent, useContext } from 'react';
 import { GlobalContext } from './context/globalContext';
 export const App: React.FC = () => {
-  const { currentStep, changeStep, currentComponent, steps } = useContext(GlobalContext)
+  const { currentStep, changeStep, currentComponent, steps, handleSubmit } = useContext(GlobalContext)
+  const submit = (data : any) => {
+    console.log(data)
+    if (currentStep < 2) {
+      changeStep(currentStep + 1, false)
+      return
+    }
+    window.alert("Formulário enviado com sucesso!")
+    changeStep(currentStep - 2, true)
+
+  }
   return (
     <StyledContainer>
-      <StyledForm onSubmit={(e) => {
-        e.preventDefault()
-        if (currentStep < 2) {
-          changeStep(currentStep + 1, false, e)
-          return
-        }
-        window.alert("Formulário enviado com sucesso!")
-        changeStep(currentStep - 2, true)
-
-      }}>
+      <StyledForm onSubmit={handleSubmit(submit)}>
         <Steps currentStep={currentStep} />
         {currentComponent}
         <BackSendIcon color={currentStep === 0 ? 'disabled' : 'action'} onClick={(e) => changeStep(currentStep - 1, false, e)} />

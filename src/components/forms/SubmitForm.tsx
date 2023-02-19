@@ -3,46 +3,32 @@ import styled from "styled-components"
 import { GlobalContext } from "../../context/globalContext"
 import { icons } from "../icons/icons"
 export const SubmitForm: React.FC = () => {
-    const { name, age, email, usability, utility, comment } = useContext(GlobalContext)
+    const { usability, utility, comment, dataDefaultValue } = useContext(GlobalContext)
     return (
         <StyledContainer>
             <h3>Here an resume of your answers</h3>
             <h4>Submit and get a 10% discount cupom</h4>
             <StyledButton type="submit">SUBMIT</StyledButton>
             <Resume>
-                <Box>
-                    <label htmlFor="name">Name:</label>
-                    <p className="text">{name}</p>
-                </Box>
-                <Box>
-                    <label htmlFor="name">Age:</label>
-                    <p className="text">{age}</p>
-                </Box>
-                <Box>
-                    <label htmlFor="name">Email:</label>
-                    <p className="text">{email}</p>
-                </Box>
-                <Box>
-                    <label htmlFor="usability">Usability:</label>
-                    <p>{icons[Number(usability)]}</p>
-                </Box>
-                <Box>
-                    <label htmlFor="utility">Utility:</label>
-                    <p>{icons[Number(utility)]}</p>
-                </Box>
+                {Object.keys(dataDefaultValue).map(key => (
+                    dataDefaultValue[key].type === 'textarea' ?
+                        <Box className="comment-box">
+                            <div className="first-section">
+                                <label htmlFor="comment">{String(key)}</label>
+                                <p className="comment">{dataDefaultValue["Comments"].value.length > 60 ? `${dataDefaultValue["Comments"].value.substring(0, 60)}` : dataDefaultValue["Comments"].value}</p>
+                            </div>
+                            <div className="last-section">
+                                <p className="comment">{dataDefaultValue["Comments"].value.length > 140 && dataDefaultValue["Comments"].value.substring(61)}</p>
+                            </div>
+                        </Box>
+                        :
+                        <Box>
+                            <label htmlFor={String(key)}>{String(key)}</label>
+                            {dataDefaultValue[key].type === 'radio' ? <p>{icons[Number(dataDefaultValue[key].value)]}</p> : <p className="text">{dataDefaultValue[key].value}</p>
+                            }
+                        </Box>
+                ))}
 
-
-                {comment &&
-                    <Box className="comment-box">
-                        <div className="first-section">
-                            <label htmlFor="comment">Comments:</label>
-                            <p className="comment">{comment.length > 60 ? `${comment.substring(0, 60)}` : comment}</p>
-                        </div>
-                        <div className="last-section">
-                            <p className="comment">{comment.length > 140 && `${comment.substring(61)}`}</p>
-                        </div>
-                    </Box>
-                }
             </Resume>
         </StyledContainer>
     )
