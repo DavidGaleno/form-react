@@ -21,12 +21,15 @@ interface IGlobalContext {
     currentStep: number,
     currentComponent: JSX.Element,
     changeStep: (step: SetStateAction<number>, end: Boolean, e?: FormEvent) => void
+    submit: boolean
+    setSubmit: (newState: boolean) => void
 }
 
 export const GlobalContext = createContext<IGlobalContext>({} as IGlobalContext)
 GlobalContext.displayName = 'Global Context'
 
 export const GlobalProvider = ({ children }: any) => {
+    const [submit, setSubmit] = useState<boolean>(false)
     const [name, setName] = useState<string>('')
     const [age, setAge] = useState<string>('')
     const [email, setEmail] = useState<string>('')
@@ -53,7 +56,7 @@ export const GlobalProvider = ({ children }: any) => {
     }
 
     return (
-        <GlobalContext.Provider value={{ name, setName, age, setAge, email, setEmail, usability, setUsability, utility, setUtility, comment, setComment, currentStep, currentComponent, changeStep, steps }}>
+        <GlobalContext.Provider value={{ name, setName, age, setAge, email, setEmail, usability, setUsability, utility, setUtility, comment, setComment, currentStep, currentComponent, changeStep, steps, submit, setSubmit }}>
             {children}
         </GlobalContext.Provider>
     )

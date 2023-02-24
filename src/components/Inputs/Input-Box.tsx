@@ -1,7 +1,8 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import styled from "styled-components"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
+import { GlobalContext } from "../../context/globalContext";
 interface Props {
     label: string
     type: string
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Props) => {
-    const [validate, setValidate] = useState(true)
+    const {setSubmit} = useContext(GlobalContext)
+    const [validate,setValidate] = useState(true)
 
     useEffect(() => {
         if (value) {
@@ -19,9 +21,11 @@ export const InputBox: React.FC<Props> = ({ label, type, value, setValue }: Prop
 
                 if (regex.test(value)) {
                     setValidate(true)
+                    setSubmit(true)
                 }
                 else {
                     setValidate(false)
+                    setSubmit(false)
                 }
             }
         }

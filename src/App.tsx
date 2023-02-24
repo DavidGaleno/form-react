@@ -5,11 +5,12 @@ import { Steps } from './components/header/Steps';
 import { useContext } from 'react';
 import { GlobalContext } from './context/globalContext';
 export const App: React.FC = () => {
-  const { currentStep, changeStep, currentComponent, steps } = useContext(GlobalContext)
+  const { currentStep, changeStep, currentComponent, steps, submit } = useContext(GlobalContext)
   return (
     <StyledContainer>
       <StyledForm onSubmit={(e) => {
         e.preventDefault()
+        if(!submit) return
         if (currentStep < 2) {
           changeStep(currentStep + 1, false, e)
           return
